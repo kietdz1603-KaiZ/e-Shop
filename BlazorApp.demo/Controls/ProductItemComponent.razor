@@ -1,0 +1,15 @@
+﻿@using eShop.CoreBusiness.Models
+@if (this.Product != null)
+{
+    <tr>
+        <td>
+            <a href="/product/@Product.Id">@Product.Name</a>
+        </td>
+        <td>@Product.Brand</td>
+        <td>@Product.Price.ToString("c")</td>
+    </tr>
+}
+@code {
+    [Parameter]
+    public Product Product { get; set; }
+}

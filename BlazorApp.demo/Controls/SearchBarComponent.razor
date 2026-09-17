@@ -1,4 +1,4 @@
-﻿<div class="mb-3 row">
+<div class="mb-3 row">
     <label for="filter">Search:&nbsp;</label>
     <div class="col-auto">
         <input type="text" class="form-control" id="filter" @bind="filter" />
@@ -9,10 +9,10 @@
 </div>
 
 @code {
-    private string filter;
+    private string? filter = string.Empty;
 
     [Parameter]
-    public EventCallback<string> OnSearch { get; set; }
+    public EventCallback<string?> OnSearch { get; set; }
 
     private void HandleSearch()
     {

@@ -1,5 +1,6 @@
-﻿@page "/counter"
+@page "/counter"
 @rendermode InteractiveServer
+@using BlazorApp.demo.Controls
 
 <PageTitle>Counter</PageTitle>
 
@@ -8,6 +9,12 @@
 <p role="status">Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<br />
+<br />
+<CascadingValue Name="Counter" Value="currentCount">
+    <Component1></Component1>
+</CascadingValue>
 
 @code {
     private int currentCount = 0;

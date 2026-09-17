@@ -1,0 +1,71 @@
+@page "/Forms"
+@rendermode InteractiveServer
+
+<h3>Forms And Validations Component</h3>
+
+@using System.ComponentModel.DataAnnotations
+
+<EditForm Model="person" OnValidSubmit="ValidFormSubmitted">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+
+    <label>
+        First Name: <br />
+        <InputText id="fname" @bind-Value="person.FirstName"></InputText>
+        <ValidationMessage For="() => person.FirstName" />
+    </label>
+    <br />
+    <br />
+    <label>
+        Last Name: <br />
+        <InputText id="lname" @bind-Value="person.LastName"></InputText>
+        <ValidationMessage For="() => person.LastName" />
+    </label>
+    <br />
+    <br />
+    <label>
+        Employee Number: <br />
+    </label>
+    <InputNumber id="emp_number" @bind-Value="person.EmployeeNumber"></InputNumber>
+    <ValidationMessage For="() => person.EmployeeNumber" />
+    <br />
+    <br />
+    <label>
+        Email: <br />
+        <InputText id="email" @bind-Value="person.Email"></InputText>
+        <ValidationMessage For="() => person.Email" />
+    </label>
+    <br />
+    <br />
+
+    <input type="submit" value="Submit" class="btn btn-primary" />
+</EditForm>
+<br />
+@submitted
+
+@code {
+    string submitted = "";
+    Person person = new Person();
+
+    private void ValidFormSubmitted()
+    {
+        submitted = "Information is submitted";
+    }
+
+    class Person
+    {
+        [Required]
+        [StringLength(100)]
+        public string FirstName { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(100)]
+        public string LastName { get; set; } = string.Empty;
+
+        public int EmployeeNumber { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
+    }
+}

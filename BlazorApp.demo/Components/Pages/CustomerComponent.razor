@@ -1,0 +1,29 @@
+@page "/customer"
+@rendermode InteractiveServer
+@using BlazorApp.demo.Models
+@using BlazorApp.demo.Services
+@inject ICustomerService customerService
+
+<PageTitle>Customer Detail</PageTitle>
+
+<h3>Customer Detail</h3>
+
+@if (customer != null)
+{
+    <p>Id: @customer.Id</p>
+    <p>Name: @customer.Name</p>
+}
+else
+{
+    <p>Loading customer...</p>
+}
+
+@code {
+    private Customer? customer;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        customer = customerService.GetCustomerById(2);
+    }
+}

@@ -1,0 +1,46 @@
+<div class="card bg-light border-warning p-3 m-2">
+    <h5>Tầng 3 (Child Level 3 - Component Sâu Nhất)</h5>
+    <p>
+        <strong>Nhận từ cha (Level 2 qua Parameter):</strong> 
+        <span class="badge bg-primary">@MessageFromParent</span>
+    </p>
+    <p>
+        <strong>Mã sản phẩm đang chọn:</strong> 
+        <span class="badge bg-success">@SelectedProductId</span>
+    </p>
+
+    <div class="mb-3">
+        <label>Chọn sản phẩm để gửi ngược lên cha (qua EventCallback):</label><br />
+        <button type="button" class="btn btn-sm btn-primary me-1" @onclick="() => SelectProduct(495)">Sản phẩm #495</button>
+        <button type="button" class="btn btn-sm btn-primary me-1" @onclick="() => SelectProduct(488)">Sản phẩm #488</button>
+        <button type="button" class="btn btn-sm btn-primary me-1" @onclick="() => SelectProduct(477)">Sản phẩm #477</button>
+    </div>
+
+    @if (SelectedProductId > 0)
+    {
+        <div>
+            <a class="btn btn-sm btn-outline-dark" href="/practice/@SelectedProductId">
+                ➡️ Chuyển trang chi tiết bằng Routing Parameter (/practice/@SelectedProductId)
+            </a>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int SelectedProductId { get; set; }
+
+    [Parameter]
+    public string MessageFromParent { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback<int> OnSelectProduct { get; set; }
+
+    private async Task SelectProduct(int id)
+    {
+        if (OnSelectProduct.HasDelegate)
+        {
+            await OnSelectProduct.InvokeAsync(id);
+        }
+    }
+}

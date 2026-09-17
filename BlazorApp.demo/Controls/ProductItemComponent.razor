@@ -1,4 +1,4 @@
-﻿@using eShop.CoreBusiness.Models
+@using eShop.CoreBusiness.Models
 @if (this.Product != null)
 {
     <tr>
@@ -11,5 +11,5 @@
 }
 @code {
     [Parameter]
-    public Product Product { get; set; }
+    public Product? Product { get; set; }
 }

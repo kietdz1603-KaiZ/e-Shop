@@ -1,4 +1,4 @@
-﻿using eShop.CoreBusiness.Models;
+using eShop.CoreBusiness.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,6 @@ namespace eShop.Usecases.SearchProductScreen
 {
     public interface ISearchProduct
     {
-        IEnumerable<Product> Execute(string filter = null);
+        IEnumerable<Product> Execute(string? filter = null);
     }
 }

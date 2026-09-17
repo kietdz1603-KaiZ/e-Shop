@@ -1,6 +1,6 @@
-﻿using eShop.CoreBusiness.Models;
+using eShop.CoreBusiness.Models;
 using eShop.Usecases.PluginInterfaces.DataStore;
-using eShop.Usecases.SearchProductScreen;
+
 namespace eShop.DataStore.HardCoded
 {
     public class  ProductRepository: IProductRepository
@@ -30,12 +30,12 @@ namespace eShop.DataStore.HardCoded
             new Product { Id = 286, Brand = "maybelline", Name = "Maybelline The Nudes Eyeshadow Palette in The Blushed Nudes", Price = 17.99, ImageLink = "https://d3t32hsnjxo7q6.cloudfront.net/i/49d98e112e77d2a9a0c8fad28df89a1e_ra,w158,h184_pa,w158,h184.png", Description = "Create looks from day to night and deep to light with Maybelline's The Blushed Nudes Eyeshadow Palette.Features:13 looks in one eyeshadow paletteExtraordinary colour from ultra-blendable pigmentsLong wear with sensual finish that lasts up to 12 hours" }
             };
         }
-        public Product GetProduct(int id)
+        public Product? GetProduct(int id)
         {
             return products.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<Product> GetProducts(string filter = null)
+        public IEnumerable<Product> GetProducts(string? filter = null)
         {
             if (string.IsNullOrWhiteSpace(filter))
                 return products;
@@ -45,7 +45,7 @@ namespace eShop.DataStore.HardCoded
                                        x.Name.Contains(filter, StringComparison.OrdinalIgnoreCase));
         }
 
-        public Product GetProducts(int id)
+        public Product? GetProducts(int id)
         {
             return products.FirstOrDefault(x => x.Id == id);
         }

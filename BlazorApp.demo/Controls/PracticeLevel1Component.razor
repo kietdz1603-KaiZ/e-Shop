@@ -1,0 +1,34 @@
+<div class="card bg-light border-primary p-3 m-2">
+    <h3>Tầng 1 (Child Level 1 Component)</h3>
+    <p>
+        <strong>Nhận từ Trang gốc (qua Parameter):</strong> 
+        <span class="badge bg-dark">@MessageFromParent</span>
+    </p>
+
+    <!-- Truyền tiếp dữ liệu xuống Tầng 2 và nhận EventCallback ngược lại -->
+    <PracticeLevel2Component 
+        SelectedProductId="SelectedProductId" 
+        MessageFromParent="@(MessageFromParent + " ➔ Đã qua Tầng 1")"
+        OnSelectProduct="HandleSelectProduct">
+    </PracticeLevel2Component>
+</div>
+
+@code {
+    [Parameter]
+    public int SelectedProductId { get; set; }
+
+    [Parameter]
+    public string MessageFromParent { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback<int> OnSelectProduct { get; set; }
+
+    private async Task HandleSelectProduct(int id)
+    {
+        // Chuyển tiếp EventCallback từ Tầng 2 lên Trang gốc
+        if (OnSelectProduct.HasDelegate)
+        {
+            await OnSelectProduct.InvokeAsync(id);
+        }
+    }
+}

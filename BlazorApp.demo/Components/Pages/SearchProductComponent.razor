@@ -1,4 +1,4 @@
-﻿@page "/products"
+@page "/products"
 @rendermode InteractiveServer
 @inject ISearchProduct searchProduct
 
@@ -45,7 +45,7 @@
 
 
 @code {
-    private IEnumerable<Product> products;
+    private IEnumerable<Product>? products;
 
     protected override void OnInitialized()
     {
@@ -54,9 +54,9 @@
         products = searchProduct.Execute();
     }
 
-    private void HandleSearch(string filter)
+    private void HandleSearch(string? filter)
     {
         products = searchProduct.Execute(filter);
-        StateHasChanged(); // Ép UI cập nhật lại danh sách kết quả mới
+        StateHasChanged();
     }
 }

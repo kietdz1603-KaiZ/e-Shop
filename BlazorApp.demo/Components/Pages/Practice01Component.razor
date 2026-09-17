@@ -1,0 +1,75 @@
+@page "/practice"
+@page "/practice/{TargetProductId:int}"
+@rendermode InteractiveServer
+@using BlazorApp.demo.Controls
+@using eShop.Usecases.SearchProductScreen
+@using eShop.CoreBusiness.Models
+@inject IViewProduct viewProduct
+
+<PageTitle>Bài thực hành 01 - Components 3 Tầng Sâu</PageTitle>
+
+<h2>Bài thực hành 01: Components 3 Tầng Sâu</h2>
+<p class="text-muted">
+    Minh họa: <strong>Parameters</strong> (Cha ➔ Con), <strong>EventCallback</strong> (Con ➔ Cha), và <strong>Routing Parameter</strong> (URL ➔ Trang mong muốn).
+</p>
+
+@if (TargetProductId > 0)
+{
+    <div class="alert alert-info">
+        <h4>🎯 Routing Parameter nhận được từ URL: <code>/practice/@TargetProductId</code></h4>
+        @if (detailedProduct != null)
+        {
+            <div class="card p-2" style="max-width: 400px;">
+                <img src="@detailedProduct.ImageLink" style="max-height: 150px; object-fit: contain;" />
+                <h5>@detailedProduct.Name</h5>
+                <p>Thương hiệu: @detailedProduct.Brand | Giá: <strong class="text-danger">@detailedProduct.Price.ToString("c")</strong></p>
+                <p class="small">@detailedProduct.Description</p>
+            </div>
+        }
+        else
+        {
+            <p>Không tìm thấy sản phẩm có ID = @TargetProductId</p>
+        }
+        <br />
+        <a class="btn btn-secondary btn-sm" href="/practice">Quay lại trang thực hành không tham số</a>
+    </div>
+}
+
+<div class="card p-3 my-3">
+    <h4>Trang gốc (Parent Page)</h4>
+    <p>
+        Sản phẩm được chọn nhận từ Tầng 3 (thông qua EventCallback xuyên suốt 3 tầng): 
+        <strong class="text-success fs-5">@(selectedProductId > 0 ? $"#{selectedProductId}" : "Chưa chọn")</strong>
+    </p>
+
+    <!-- Nhúng Component Tầng 1 -->
+    <PracticeLevel1Component 
+        SelectedProductId="selectedProductId" 
+        MessageFromParent="Dữ liệu gốc từ Trang cha"
+        OnSelectProduct="HandleProductSelected">
+    </PracticeLevel1Component>
+</div>
+
+@code {
+    [Parameter]
+    public int TargetProductId { get; set; }
+
+    private int selectedProductId = 0;
+    private Product? detailedProduct;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (TargetProductId > 0)
+        {
+            detailedProduct = viewProduct.Execute(TargetProductId);
+            selectedProductId = TargetProductId;
+        }
+    }
+
+    private void HandleProductSelected(int id)
+    {
+        selectedProductId = id;
+        StateHasChanged();
+    }
+}

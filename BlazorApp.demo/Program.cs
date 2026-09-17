@@ -1,6 +1,9 @@
 using BlazorApp.demo.Components;
+using BlazorApp.demo.Services;
 using eShop.DataStore.HardCoded;
+using eShop.Usecases.PluginInterfaces.DataStore;
 using eShop.Usecases.SearchProductScreen;
+using eShop.Usecases.ViewProductScreen;
 
 namespace BlazorApp.demo
 {
@@ -16,6 +19,10 @@ namespace BlazorApp.demo
             builder.Services.AddTransient<IProductRepository, ProductRepository>();
             builder.Services.AddTransient<ISearchProduct, SearchProduct>();
             builder.Services.AddTransient<IViewProduct, ViewProduct>();
+
+            builder.Services.AddTransient<ICustomerService, CustomerService>();
+            //builder.Services.AddSingleton<ICustomerService, CustomerService>();
+            //builder.Services.AddScoped<ICustomerService, CustomerService>();
 
             var app = builder.Build();
 

@@ -2,32 +2,66 @@
 
 @inject IViewShoppingCartUseCase viewShoppingCartUseCase
 
-<h3>Shopping Cart</h3>
-<br />
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb small">
+        <li class="breadcrumb-item"><a href="/"><i class="bi bi-house-door"></i> Trang Chủ</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Giỏ Hàng</li>
+    </ol>
+</nav>
+
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h3 class="fw-bold mb-0">
+        <i class="bi bi-bag-check text-primary me-2"></i>Giỏ Hàng Của Bạn
+    </h3>
+    @if (order?.LineItems != null && order.LineItems.Any())
+    {
+        <span class="badge bg-primary rounded-pill px-3 py-2">
+            @order.LineItems.Sum(x => x.Quantity) sản phẩm
+        </span>
+    }
+</div>
 
 @if (order != null && order.LineItems != null && order.LineItems.Count > 0)
 {
-    <div class="row">
-        <div class="col-6">
-            <ul>
+    <div class="row g-4">
+        <!-- Products list -->
+        <div class="col-lg-8">
+            <div class="cart-table-card">
                 @for (int i = 0; i < order.LineItems.Count; i++)
                 {
                     <LineItemComponent LineItem="order.LineItems[i]" 
                                        OnDeleteProduct="HandleDeleteProduct" 
                                        OnUpdateQuantity="HandleUpdateQuantity">
                     </LineItemComponent>
-                    @if (i < order.LineItems.Count - 1)
-                    {
-                        <li style="list-style:none">
-                            <hr />
-                        </li>
-                    }
                 }
-            </ul>
+
+                <div class="pt-3 mt-3 border-top d-flex justify-content-between align-items-center">
+                    <a href="/products" class="text-primary text-decoration-none fw-semibold">
+                        <i class="bi bi-arrow-left me-1"></i> Tiếp tục chọn sản phẩm khác
+                    </a>
+                    <span class="text-muted small">
+                        <i class="bi bi-shield-check text-success"></i> Cam kết giá tốt nhất thị trường
+                    </span>
+                </div>
+            </div>
         </div>
-        <div class="col">
+
+        <!-- Order Summary -->
+        <div class="col-lg-4">
             <OrderSummaryComponent order="order"></OrderSummaryComponent>
         </div>
+    </div>
+}
+else
+{
+    <div class="text-center py-5 bg-white rounded-4 border border-light shadow-sm my-4">
+        <div class="display-1 text-muted mb-3"><i class="bi bi-bag-x"></i></div>
+        <h4 class="fw-bold mb-2">Giỏ hàng của bạn đang trống!</h4>
+        <p class="text-muted mb-4">Hãy khám phá bộ sưu tập mỹ phẩm cao cấp và chọn cho mình sản phẩm ưng ý nhất.</p>
+        <a href="/products" class="btn btn-primary rounded-pill px-4 py-2 fw-bold">
+            <i class="bi bi-arrow-left me-2"></i> Khám Phá Sản Phẩm Ngay
+        </a>
     </div>
 }
 

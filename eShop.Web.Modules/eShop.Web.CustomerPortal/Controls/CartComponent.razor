@@ -1,9 +1,11 @@
 @implements IDisposable
 @inject IShoppingCartStateStore shoppingCartStateStore
 
-<div>
-    Cart:&nbsp;@lineItemCount
-</div>
+<span class="d-inline-flex align-items-center gap-2">
+    <i class="bi bi-cart3 fs-5"></i>
+    <span class="d-none d-sm-inline">Giỏ Hàng</span>
+    <span class="cart-badge-count">@lineItemCount</span>
+</span>
 
 @code {
     private int lineItemCount = 0;

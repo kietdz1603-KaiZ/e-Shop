@@ -3,39 +3,175 @@
 
 @inject ISearchProductUseCase searchProduct
 
-<h3>Search Product Component</h3>
-<br/>
-
-<SearchBarComponent OnSearch="HandleSearch"></SearchBarComponent>
-<br/>
-<br/>
-
-@if (products != null && products.Count() > 0)
-{
-    <div class="row">
-        @foreach (var product in products)
-        {
-            <ProductCardComponent product="product"></ProductCardComponent>
-        }
+<!-- Hero Banner Section -->
+<div class="hero-banner">
+    <div class="row align-items-center">
+        <div class="col-lg-8">
+            <span class="hero-badge">
+                <i class="bi bi-stars text-warning"></i> Mỹ Phẩm Chính Hãng 100%
+            </span>
+            <h1 class="hero-title">
+                Khám Phá Vẻ Đẹp Hoàn Hảo <br />
+                Cùng <span class="eshop-brand-highlight">eShop Beauty</span>
+            </h1>
+            <p class="hero-subtitle">
+                Trải nghiệm những dòng kem nền, phấn má, mascara và bảng màu mắt cao cấp được yêu thích nhất hiện nay. Tự tin tỏa sáng mỗi ngày!
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="#product-section" class="btn btn-primary px-4 py-2 fw-bold rounded-pill">
+                    <i class="bi bi-bag-check me-2"></i> Mua Ngay
+                </a>
+                <span class="badge bg-white text-dark d-inline-flex align-items-center px-3 py-2 rounded-pill shadow-sm">
+                    <i class="bi bi-truck text-primary me-2"></i> Freeship đơn từ $50
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-4 d-none d-lg-block text-center">
+            <div class="p-3 bg-white rounded-4 shadow-sm border border-light">
+                <img src="https://d3t32hsnjxo7q6.cloudfront.net/i/4f731de249cbd4cb819ea7f5f4cfb5c3_ra,w158,h184_pa,w158,h184.png" 
+                     alt="Featured Beauty" 
+                     class="img-fluid" 
+                     style="max-height: 200px; transform: scale(1.15);" />
+                <div class="mt-2 fw-bold text-dark">Bộ Sưu Tập Xu Hướng 2026</div>
+                <small class="text-muted">Maybelline Official Store</small>
+            </div>
+        </div>
     </div>
-}
-else
-{
-    <text>No Products Found.</text>
-}
+</div>
+
+<!-- Trust Perks -->
+<div class="trust-perks">
+    <div class="row g-3">
+        <div class="col-md-3 col-6">
+            <div class="perk-item">
+                <div class="perk-icon-wrapper perk-icon-blue">
+                    <i class="bi bi-truck"></i>
+                </div>
+                <div>
+                    <div class="perk-title">Giao Hàng Miễn Phí</div>
+                    <div class="perk-desc">Đơn hàng từ $50</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="perk-item">
+                <div class="perk-icon-wrapper perk-icon-green">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <div>
+                    <div class="perk-title">100% Chính Hãng</div>
+                    <div class="perk-desc">Cam kết hoàn tiền 200%</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="perk-item">
+                <div class="perk-icon-wrapper perk-icon-purple">
+                    <i class="bi bi-arrow-repeat"></i>
+                </div>
+                <div>
+                    <div class="perk-title">Đổi Trả 7 Ngày</div>
+                    <div class="perk-desc">Thủ tục nhanh chóng</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="perk-item">
+                <div class="perk-icon-wrapper perk-icon-amber">
+                    <i class="bi bi-headset"></i>
+                </div>
+                <div>
+                    <div class="perk-title">Hỗ Trợ 24/7</div>
+                    <div class="perk-desc">Tư vấn tận tâm</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Catalog Section -->
+<div id="product-section" class="mb-4">
+    <div class="row align-items-center mb-3">
+        <div class="col-lg-6 mb-3 mb-lg-0">
+            <h3 class="fw-bold mb-1">Bộ Sưu Tập Nổi Bật</h3>
+            <p class="text-muted small mb-0">Lựa chọn các sản phẩm trang điểm cao cấp dành riêng cho bạn</p>
+        </div>
+        <div class="col-lg-6">
+            <SearchBarComponent OnSearch="HandleSearch"></SearchBarComponent>
+        </div>
+    </div>
+
+    <!-- Category Filter Chips -->
+    <div class="d-flex flex-wrap gap-2 mb-4">
+        <button class="filter-chip @(selectedCategory == "" ? "active" : "")" @onclick="@(() => FilterCategory(""))">
+            <i class="bi bi-grid-fill"></i> Tất Cả
+        </button>
+        <button class="filter-chip @(selectedCategory == "Foundation" ? "active" : "")" @onclick="@(() => FilterCategory("Foundation"))">
+            Kem Nền (Foundation)
+        </button>
+        <button class="filter-chip @(selectedCategory == "Blush" ? "active" : "")" @onclick="@(() => FilterCategory("Blush"))">
+            Phấn Má (Blush)
+        </button>
+        <button class="filter-chip @(selectedCategory == "Bronzer" ? "active" : "")" @onclick="@(() => FilterCategory("Bronzer"))">
+            Phấn Tạo Khối (Bronzer)
+        </button>
+        <button class="filter-chip @(selectedCategory == "Shadow" ? "active" : "")" @onclick="@(() => FilterCategory("Shadow"))">
+            Phấn Mắt (Eye Shadow)
+        </button>
+    </div>
+
+    @if (products != null && products.Any())
+    {
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted small">
+                Hiển thị <b>@products.Count()</b> sản phẩm
+            </span>
+        </div>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            @foreach (var product in products)
+            {
+                <ProductCardComponent product="product"></ProductCardComponent>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5 bg-white rounded-4 border border-light shadow-sm my-4">
+            <div class="display-1 text-muted mb-3"><i class="bi bi-search"></i></div>
+            <h4 class="fw-bold">Không tìm thấy sản phẩm phù hợp</h4>
+            <p class="text-muted">Vui lòng thử tìm kiếm bằng từ khóa khác hoặc xóa bộ lọc.</p>
+            <button class="btn btn-outline-primary rounded-pill px-4" @onclick="@(() => FilterCategory(""))">
+                Xem Tất Cả Sản Phẩm
+            </button>
+        </div>
+    }
+</div>
 
 @code {
     private IEnumerable<Product>? products;
+    private string selectedCategory = "";
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        LoadProducts();
+    }
 
-        products = searchProduct.Execute();
+    private void LoadProducts(string? filter = null)
+    {
+        products = searchProduct.Execute(filter);
     }
 
     private void HandleSearch(string filter)
     {
-        products = searchProduct.Execute(filter);
+        selectedCategory = "";
+        LoadProducts(filter);
+    }
+
+    private void FilterCategory(string category)
+    {
+        selectedCategory = category;
+        LoadProducts(category);
     }
 }

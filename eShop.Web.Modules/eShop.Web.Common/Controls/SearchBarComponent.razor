@@ -1,14 +1,25 @@
-<div class="row">
-    <div class="col-8">
-        <input type="text" class="form-control" placeholder="Search..." @bind-value="filter" />
-    </div>
-    <div class="col-4">
-        <button type="button" class="btn btn-primary" @onclick="HandleSearch">Search</button>
-    </div>
+<div class="search-wrapper">
+    <i class="bi bi-search text-muted fs-5 me-2"></i>
+    <input type="text" 
+           class="search-input" 
+           placeholder="Tìm kiếm sản phẩm theo tên, loại mỹ phẩm (VD: Bronzer, Blush, Foundation...)" 
+           @bind-value="filter" 
+           @bind-value:event="oninput"
+           @onkeyup="HandleKeyUp" />
+    @if (!string.IsNullOrEmpty(filter))
+    {
+        <button type="button" class="btn btn-sm btn-link text-muted me-2 p-0" @onclick="ClearSearch">
+            <i class="bi bi-x-circle-fill"></i>
+        </button>
+    }
+    <button type="button" class="search-btn" @onclick="HandleSearch">
+        <i class="bi bi-search"></i>
+        <span>Tìm Kiếm</span>
+    </button>
 </div>
 
 @code {
-    private string filter;
+    private string filter = string.Empty;
 
     [Parameter]
     public EventCallback<string> OnSearch { get; set; }
@@ -16,5 +27,19 @@
     private void HandleSearch()
     {
         OnSearch.InvokeAsync(filter);
+    }
+
+    private void HandleKeyUp(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            HandleSearch();
+        }
+    }
+
+    private void ClearSearch()
+    {
+        filter = string.Empty;
+        HandleSearch();
     }
 }

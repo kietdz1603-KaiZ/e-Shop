@@ -1,37 +1,93 @@
 @if (customer != null)
 {
-    <EditForm Model="customer" OnValidSubmit="HandleValidSubmit">
-        <DataAnnotationsValidator></DataAnnotationsValidator>
-        <ValidationSummary></ValidationSummary>
+    <div class="checkout-card">
+        <h5 class="fw-bold mb-3">
+            <i class="bi bi-geo-alt-fill text-primary me-2"></i>Thông Tin Giao Hàng
+        </h5>
+        <p class="text-muted small mb-4">Vui lòng điền chính xác thông tin để đơn hàng được giao đến bạn nhanh nhất.</p>
 
-        <div class="form-group">
-            <label for="name">Name</label>
-            <InputText id="name" @bind-Value="customer.CustomerName" class="form-control"></InputText>
-        </div>
+        <EditForm Model="customer" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <ValidationSummary class="alert alert-danger p-2 small mb-3"></ValidationSummary>
 
-        <div class="form-group">
-            <label for="address">Address</label>
-            <InputText id="address" @bind-Value="customer.CustomerAddress" class="form-control"></InputText>
-        </div>
+            <div class="mb-3">
+                <label for="name" class="form-label-custom">
+                    <i class="bi bi-person-fill text-muted me-1"></i> Họ và tên người nhận <span class="text-danger">*</span>
+                </label>
+                <InputText id="name" 
+                           placeholder="Ví dụ: Nguyễn Văn A" 
+                           @bind-Value="customer.CustomerName" 
+                           class="form-control form-control-custom"></InputText>
+            </div>
 
-        <div class="form-group">
-            <label for="city">City</label>
-            <InputText id="city" @bind-Value="customer.CustomerCity" class="form-control"></InputText>
-        </div>
+            <div class="mb-3">
+                <label for="address" class="form-label-custom">
+                    <i class="bi bi-house-door-fill text-muted me-1"></i> Địa chỉ giao hàng chi tiết <span class="text-danger">*</span>
+                </label>
+                <InputText id="address" 
+                           placeholder="Ví dụ: 123 Đường Nguyễn Huệ, Phường Bến Nghé" 
+                           @bind-Value="customer.CustomerAddress" 
+                           class="form-control form-control-custom"></InputText>
+            </div>
 
-        <div class="form-group">
-            <label for="province">Province</label>
-            <InputText id="province" @bind-Value="customer.CustomerStateProvince" class="form-control"></InputText>
-        </div>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label for="city" class="form-label-custom">
+                        <i class="bi bi-buildings-fill text-muted me-1"></i> Thành phố / Tỉnh <span class="text-danger">*</span>
+                    </label>
+                    <InputText id="city" 
+                               placeholder="Ví dụ: TP. Hồ Chí Minh" 
+                               @bind-Value="customer.CustomerCity" 
+                               class="form-control form-control-custom"></InputText>
+                </div>
 
-        <div class="form-group">
-            <label for="country">Country</label>
-            <InputText id="country" @bind-Value="customer.CustomerCountry" class="form-control"></InputText>
-        </div>
+                <div class="col-md-6">
+                    <label for="province" class="form-label-custom">
+                        <i class="bi bi-pin-map-fill text-muted me-1"></i> Quận / Huyện / Tỉnh <span class="text-danger">*</span>
+                    </label>
+                    <InputText id="province" 
+                               placeholder="Ví dụ: Quận 1" 
+                               @bind-Value="customer.CustomerStateProvince" 
+                               class="form-control form-control-custom"></InputText>
+                </div>
+            </div>
 
-        <br />
-        <button type="submit" class="btn btn-primary">Place Order</button>
-    </EditForm>
+            <div class="mb-4">
+                <label for="country" class="form-label-custom">
+                    <i class="bi bi-globe-americas text-muted me-1"></i> Quốc gia <span class="text-danger">*</span>
+                </label>
+                <InputText id="country" 
+                           placeholder="Ví dụ: Việt Nam" 
+                           @bind-Value="customer.CustomerCountry" 
+                           class="form-control form-control-custom"></InputText>
+            </div>
+
+            <!-- Payment Methods Mockup -->
+            <h6 class="fw-bold mb-3 mt-4 pt-3 border-top">
+                <i class="bi bi-credit-card-fill text-primary me-2"></i>Phương Thức Thanh Toán
+            </h6>
+            <div class="d-flex flex-column gap-2 mb-4">
+                <div class="p-3 border rounded-3 bg-light d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="radio" id="pay-cod" name="paymentMethod" checked class="form-check-input" />
+                        <label for="pay-cod" class="mb-0 fw-semibold">Thanh toán khi nhận hàng (COD)</label>
+                    </div>
+                    <i class="bi bi-cash-stack text-success fs-5"></i>
+                </div>
+                <div class="p-3 border rounded-3 bg-white d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="radio" id="pay-bank" name="paymentMethod" class="form-check-input" />
+                        <label for="pay-bank" class="mb-0 fw-semibold">Chuyển khoản Ngân hàng / QR Pay (Miễn phí)</label>
+                    </div>
+                    <i class="bi bi-qr-code text-primary fs-5"></i>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold rounded-3 shadow-sm py-3">
+                <i class="bi bi-check2-circle me-2"></i> Xác Nhận Đặt Hàng Ngay
+            </button>
+        </EditForm>
+    </div>
 }
 
 @code {

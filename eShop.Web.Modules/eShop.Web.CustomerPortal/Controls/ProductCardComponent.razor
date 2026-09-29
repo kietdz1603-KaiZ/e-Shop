@@ -1,8 +1,32 @@
-<div class="card m-2 p-2" style="width: 12rem;">
-    <img src="@product.ImageLink" class="card-img-top" alt=""/>
-    <div class="card-body">
-        <h5 class="card-title"><NavLink href=@($"product/{product.ProductId}")>@product.Name</NavLink></h5>
-        <p class="card-text" style="color: darkred">@product.Price.ToString("c")</p>
+<div class="col">
+    <div class="product-card">
+        <div class="product-img-box">
+            <span class="badge-brand">@product.Brand</span>
+            <span class="badge-promo"><i class="bi bi-lightning-fill"></i> Hot Deal</span>
+            <img src="@product.ImageLink" class="product-img" alt="@product.Name" loading="lazy" />
+        </div>
+        <div class="product-card-body">
+            <div class="product-rating">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <span class="product-rating-count">(4.8) • 120+ đã bán</span>
+            </div>
+            <a href=@($"product/{product.ProductId}") class="product-title text-decoration-none" title="@product.Name">
+                @product.Name
+            </a>
+            <div class="product-price-row">
+                <div>
+                    <div class="product-price">@product.Price.ToString("c")</div>
+                    <small class="text-decoration-line-through text-muted small">@((product.Price * 1.25).ToString("c"))</small>
+                </div>
+                <a href=@($"product/{product.ProductId}") class="product-btn-view" title="Xem chi tiết sản phẩm">
+                    <i class="bi bi-arrow-up-right"></i>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 

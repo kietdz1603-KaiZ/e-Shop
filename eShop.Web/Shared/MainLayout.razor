@@ -2,15 +2,78 @@
 
 <PageTitle>eShop.Web</PageTitle>
 
-<div class="page">
-    <main>
-        <TopNavBar></TopNavBar>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+<div class="d-flex flex-column min-vh-100">
+    <TopNavBar></TopNavBar>
 
-        <article class="content px-4">
-            @Body
-        </article>
+    <main class="container my-4 flex-grow-1">
+        @Body
     </main>
+
+    <footer class="eshop-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-brand">
+                        <span class="eshop-brand-icon" style="width: 32px; height: 32px; font-size: 1rem;">
+                            <i class="bi bi-bag-heart-fill"></i>
+                        </span>
+                        <span>eShop.Beauty</span>
+                    </div>
+                    <p class="text-secondary small mb-3">
+                        Hệ thống phân phối mỹ phẩm và sản phẩm chăm sóc sắc đẹp chính hãng hàng đầu. Cam kết 100% sản phẩm nguồn gốc rõ ràng, hoàn tiền gấp đôi nếu phát hiện hàng giả.
+                    </p>
+                    <div class="d-flex gap-2">
+                        <span class="badge bg-secondary p-2"><i class="bi bi-shield-check text-success"></i> 100% Chính Hãng</span>
+                        <span class="badge bg-secondary p-2"><i class="bi bi-truck text-warning"></i> Giao Hàng Toàn Quốc</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="footer-heading">Khám Phá</h6>
+                    <ul class="footer-links">
+                        <li><a href="/">Trang Chủ</a></li>
+                        <li><a href="/products">Bộ Sưu Tập</a></li>
+                        <li><a href="/cart">Giỏ Hàng</a></li>
+                        <li><a href="/">Khuyến Mãi Hot</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="footer-heading">Chăm Sóc Khách Hàng</h6>
+                    <ul class="footer-links">
+                        <li><i class="bi bi-telephone text-primary me-2"></i> Hotline: <b>1900 6868</b></li>
+                        <li><i class="bi bi-envelope text-primary me-2"></i> Email: support@eshop.vn</li>
+                        <li><i class="bi bi-geo-alt text-primary me-2"></i> Giờ làm việc: 8:00 - 21:00</li>
+                        <li><i class="bi bi-arrow-repeat text-primary me-2"></i> Đổi trả dễ dàng trong 7 ngày</li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="footer-heading">Phương Thức Thanh Toán</h6>
+                    <p class="text-secondary small">
+                        Hỗ trợ đa dạng các hình thức thanh toán an toàn, bảo mật tuyệt đối theo chuẩn quốc tế.
+                    </p>
+                    <div class="d-flex flex-wrap gap-2 fs-4 text-light">
+                        <i class="bi bi-credit-card-2-front" title="Thẻ ATM / Visa / Master"></i>
+                        <i class="bi bi-cash-coin" title="Thanh toán khi nhận hàng (COD)"></i>
+                        <i class="bi bi-qr-code-scan" title="Chuyển khoản QR Code"></i>
+                        <i class="bi bi-shield-lock-fill text-success" title="Bảo mật SSL 256-bit"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="text-secondary small">
+                    © 2026 eShop Beauty. Clean Architecture Blazor Solution. All rights reserved.
+                </div>
+                <div class="d-flex gap-3 text-secondary small">
+                    <a href="#" class="text-secondary">Chính sách bảo mật</a>
+                    <span>•</span>
+                    <a href="#" class="text-secondary">Điều khoản dịch vụ</a>
+                    <span>•</span>
+                    <a href="#" class="text-secondary">Hỗ trợ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>

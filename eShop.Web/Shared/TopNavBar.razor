@@ -1,15 +1,22 @@
-<div class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <ul class="navbar-nav w-100">
-        <li class="nav-item">
-            <a class="navbar-brand" href="">eShop</a>
-        </li>
-        <li class="nav-item ml-auto">
-            <NavLink class="nav-link" href="/cart">
+<nav class="navbar navbar-expand-lg eshop-navbar">
+    <div class="container">
+        <a class="navbar-brand eshop-brand" href="/">
+            <span class="eshop-brand-icon">
+                <i class="bi bi-bag-heart-fill"></i>
+            </span>
+            <span>eShop<span class="eshop-brand-highlight">.Beauty</span></span>
+        </a>
+
+        <div class="d-flex align-items-center gap-3 ms-auto">
+            <NavLink class="nav-link-custom d-none d-md-flex align-items-center gap-1" href="/">
+                <i class="bi bi-grid"></i> Sản Phẩm
+            </NavLink>
+            <NavLink class="cart-pill-btn text-decoration-none" href="/cart">
                 <CartComponent></CartComponent>
             </NavLink>
-        </li>
-    </ul>
-</div>
+        </div>
+    </div>
+</nav>
 
 @code {
 

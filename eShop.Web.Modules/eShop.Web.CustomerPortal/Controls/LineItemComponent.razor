@@ -3,24 +3,61 @@
 
 @if (LineItem != null && LineItem.Product != null)
 {
-    <li class="row">
-        <div class="col">
-            <img src="@LineItem.Product.ImageLink" />
+    <div class="line-item-row row align-items-center">
+        <!-- Thumbnail -->
+        <div class="col-auto">
+            <a href="/product/@LineItem.ProductId">
+                <img src="@LineItem.Product.ImageLink" alt="@LineItem.Product.Name" class="line-item-thumb" />
+            </a>
         </div>
+
+        <!-- Details -->
         <div class="col">
-            <h5>@LineItem.Product.Name</h5>
-            <div>
-                Quantity:&nbsp;&nbsp;
-                <input type="number" min="0" value="@LineItem.Quantity" @onchange="HandleQuantityChange" />
+            <span class="badge bg-light text-muted border text-uppercase mb-1 small">@LineItem.Product.Brand</span>
+            <h6 class="fw-bold mb-1">
+                <a href="/product/@LineItem.ProductId" class="text-dark text-decoration-none">
+                    @LineItem.Product.Name
+                </a>
+            </h6>
+            <div class="text-muted small">
+                Đơn giá: <span class="fw-semibold text-dark">@LineItem.Product.Price.ToString("c")</span>
             </div>
-            <div>
-                Price:&nbsp;&nbsp;@LineItem.Product.Price.ToString("c")
+        </div>
+
+        <!-- Quantity Stepper -->
+        <div class="col-auto">
+            <div class="qty-control-wrapper">
+                <button type="button" class="qty-btn" @onclick="DecrementQuantity" title="Giảm số lượng">
+                    <i class="bi bi-dash"></i>
+                </button>
+                <input type="number" 
+                       min="1" 
+                       class="qty-input" 
+                       value="@LineItem.Quantity" 
+                       @onchange="HandleQuantityChange" />
+                <button type="button" class="qty-btn" @onclick="IncrementQuantity" title="Tăng số lượng">
+                    <i class="bi bi-plus"></i>
+                </button>
             </div>
         </div>
-        <div class="col">
-            <button class="btn btn-light" @onclick="@(() => DeleteProduct(LineItem.ProductId))">Delete</button>
+
+        <!-- Subtotal -->
+        <div class="col-auto text-end" style="min-width: 100px;">
+            <div class="fw-bold text-danger fs-6">
+                @((LineItem.Price * LineItem.Quantity).ToString("c"))
+            </div>
         </div>
-    </li>
+
+        <!-- Delete Button -->
+        <div class="col-auto">
+            <button type="button" 
+                    class="btn-trash" 
+                    @onclick="@(() => DeleteProduct(LineItem.ProductId))" 
+                    title="Xóa khỏi giỏ hàng">
+                <i class="bi bi-trash3-fill"></i>
+            </button>
+        </div>
+    </div>
 }
 
 @code {
@@ -42,6 +79,21 @@
         {
             if (qty < 0) return;
             var order = await updateQuantityUseCase.Execute(LineItem.ProductId, qty);
+            await OnUpdateQuantity.InvokeAsync(order);
+        }
+    }
+
+    async Task IncrementQuantity()
+    {
+        var order = await updateQuantityUseCase.Execute(LineItem.ProductId, LineItem.Quantity + 1);
+        await OnUpdateQuantity.InvokeAsync(order);
+    }
+
+    async Task DecrementQuantity()
+    {
+        if (LineItem.Quantity > 1)
+        {
+            var order = await updateQuantityUseCase.Execute(LineItem.ProductId, LineItem.Quantity - 1);
             await OnUpdateQuantity.InvokeAsync(order);
         }
     }

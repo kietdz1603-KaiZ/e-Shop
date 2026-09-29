@@ -4,16 +4,63 @@
 @inject IViewShoppingCartUseCase viewShoppingCartUseCase
 @inject IPlaceOrderUseCase PlaceOrderUseCase
 
-<h3>Placing Order</h3>
-<br/>
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb small">
+        <li class="breadcrumb-item"><a href="/"><i class="bi bi-house-door"></i> Trang Chủ</a></li>
+        <li class="breadcrumb-item"><a href="/cart">Giỏ Hàng</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Thanh Toán & Đặt Hàng</li>
+    </ol>
+</nav>
 
-@if (order != null)
+<!-- Checkout Step Indicator -->
+<div class="checkout-step-indicator">
+    <div class="step-item text-success">
+        <div class="step-num bg-success text-white"><i class="bi bi-check-lg"></i></div>
+        <span>Giỏ Hàng</span>
+    </div>
+    <div class="step-line border-top flex-grow-1" style="max-width: 80px;"></div>
+    <div class="step-item active">
+        <div class="step-num">2</div>
+        <span>Thông Tin & Thanh Toán</span>
+    </div>
+    <div class="step-line border-top flex-grow-1" style="max-width: 80px;"></div>
+    <div class="step-item">
+        <div class="step-num">3</div>
+        <span>Hoàn Tất</span>
+    </div>
+</div>
+
+@if (order != null && order.LineItems != null && order.LineItems.Any())
 {
-    <div class="row">
-        <div class="col">
+    <div class="row g-4">
+        <div class="col-lg-7">
             <CustomerFormComponent OnCustomerInfoSubmitted="HandleCustomerInfoSubmitted"></CustomerFormComponent>
         </div>
-        <div class="col">
+        <div class="col-lg-5">
+            <!-- Review Products inside order -->
+            <div class="card rounded-4 border-light shadow-sm p-3 mb-3 bg-white">
+                <h6 class="fw-bold mb-3 d-flex justify-content-between">
+                    <span><i class="bi bi-box2 text-primary me-2"></i>Đơn Hàng Của Bạn</span>
+                    <span class="badge bg-light text-dark border">@order.LineItems.Count sản phẩm</span>
+                </h6>
+                <div class="d-flex flex-column gap-2" style="max-height: 240px; overflow-y: auto;">
+                    @foreach (var item in order.LineItems)
+                    {
+                        <div class="d-flex align-items-center gap-3 p-2 border-bottom">
+                            <img src="@item.Product.ImageLink" alt="@item.Product.Name" style="width: 50px; height: 50px; object-fit: contain;" class="rounded bg-light border p-1" />
+                            <div class="flex-grow-1 text-truncate">
+                                <div class="fw-bold small text-truncate">@item.Product.Name</div>
+                                <div class="text-muted small">SL: @item.Quantity × @item.Price.ToString("c")</div>
+                            </div>
+                            <div class="fw-bold text-danger small">
+                                @((item.Price * item.Quantity).ToString("c"))
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
             <OrderSummaryComponent order="order" HidePlaceOrder="true"></OrderSummaryComponent>
         </div>
     </div>

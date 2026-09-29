@@ -1,9 +1,10 @@
 using BlazorApp.demo.Components;
 using BlazorApp.demo.Services;
 using eShop.DataStore.HardCoded;
-using eShop.Usecases.PluginInterfaces.DataStore;
-using eShop.Usecases.SearchProductScreen;
-using eShop.Usecases.ViewProductScreen;
+using eShop.UseCases.PluginInterfaces.DataStore;
+using eShop.UseCases.SearchProductScreen;
+using eShop.UseCases.ViewProductScreen;
+using eShop.UseCases.ViewProductScreen.interfaces;
 
 namespace BlazorApp.demo
 {
@@ -17,8 +18,8 @@ namespace BlazorApp.demo
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
             builder.Services.AddTransient<IProductRepository, ProductRepository>();
-            builder.Services.AddTransient<ISearchProduct, SearchProduct>();
-            builder.Services.AddTransient<IViewProduct, ViewProduct>();
+            builder.Services.AddTransient<ISearchProductUseCase, SearchProductUseCase>();
+            builder.Services.AddTransient<IViewProductUseCase, ViewProductUseCase>();
 
             builder.Services.AddTransient<ICustomerService, CustomerService>();
             //builder.Services.AddSingleton<ICustomerService, CustomerService>();

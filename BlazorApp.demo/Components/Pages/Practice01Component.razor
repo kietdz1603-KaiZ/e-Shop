@@ -2,9 +2,10 @@
 @page "/practice/{TargetProductId:int}"
 @rendermode InteractiveServer
 @using BlazorApp.demo.Controls
-@using eShop.Usecases.SearchProductScreen
+@using eShop.UseCases.SearchProductScreen
+@using eShop.UseCases.ViewProductScreen.interfaces
 @using eShop.CoreBusiness.Models
-@inject IViewProduct viewProduct
+@inject IViewProductUseCase viewProduct
 
 <PageTitle>Bài thực hành 01 - Components 3 Tầng Sâu</PageTitle>
 

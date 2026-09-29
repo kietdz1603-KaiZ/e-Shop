@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +8,8 @@ namespace eShop.CoreBusiness.Models
 {
     public class Product
     {
-        public int Id { get; set; }
+        public int ProductId { get; set; }
+        public int Id { get => ProductId; set => ProductId = value; }
         public string Brand { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }

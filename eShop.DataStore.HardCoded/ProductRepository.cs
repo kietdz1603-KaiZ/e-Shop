@@ -1,5 +1,5 @@
 using eShop.CoreBusiness.Models;
-using eShop.Usecases.PluginInterfaces.DataStore;
+using eShop.UseCases.PluginInterfaces.DataStore;
 
 namespace eShop.DataStore.HardCoded
 {

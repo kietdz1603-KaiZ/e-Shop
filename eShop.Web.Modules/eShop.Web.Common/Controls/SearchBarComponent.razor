@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-8">
+        <input type="text" class="form-control" placeholder="Search..." @bind-value="filter" />
+    </div>
+    <div class="col-4">
+        <button type="button" class="btn btn-primary" @onclick="HandleSearch">Search</button>
+    </div>
+</div>
+
+@code {
+    private string filter;
+
+    [Parameter]
+    public EventCallback<string> OnSearch { get; set; }
+
+    private void HandleSearch()
+    {
+        OnSearch.InvokeAsync(filter);
+    }
+}
